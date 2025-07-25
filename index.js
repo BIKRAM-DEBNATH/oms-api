@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import userRoutes from "./routes/user.js";
+import userRoutes from "./routes/auth.js";
 import employeeRoutes from "./routes/employee.js";
 import taskRoutes from "./routes/task.js";
 import leaveRoutes from "./routes/leaveRoutes.js";
