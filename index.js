@@ -7,13 +7,13 @@ import userRoutes from "./routes/auth.js";
 import employeeRoutes from "./routes/employee.js";
 import taskRoutes from "./routes/task.js";
 import leaveRoutes from "./routes/leaveRoutes.js";
-import settingsRoutes from "./routes/settings.js"; // ✅ NEW
+import settingsRoutes from "./routes/settings.js"; // ✅ Settings route
 
 dotenv.config();
 
 const app = express();
 
-// ✅ Allowed frontend origins (add all your Vercel frontend URLs here)
+// ✅ Allowed frontend origins
 const allowedOrigins = [
   "https://office-management-system-lnqn84qu4.vercel.app",
   "https://office-management-system-rho.vercel.app",
@@ -58,14 +58,14 @@ app.use("/api/auth", userRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/leaves", leaveRoutes);
-app.use("/api/settings", settingsRoutes); // ✅ NEW
+app.use("/api/admin", settingsRoutes); // ✅ Changed from /api/settings to /api/admin
 
-// ✅ Root route for test
+// ✅ Root route for health check
 app.get("/", (req, res) => {
   res.send("🚀 Office Management System Backend is Running");
 });
 
-// ✅ Server Listen
+// ✅ Server start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
