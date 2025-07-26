@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyUser, verifyAdmin } from '../middleware/authmiddleware.js';
-import User from '../models/user.js'; // Add this if you're updating user settings in DB
+import User from '../models/user.js';
 
 const router = express.Router();
 
@@ -41,8 +41,8 @@ router.put('/', verifyUser, async (req, res) => {
   }
 });
 
-// Admin-only: View all users' settings (example)
-router.get('/admin', verifyAdmin, async (req, res) => {
+// Admin-only: View all users' settings (for frontend calling /api/admin/settings)
+router.get('/admin/settings', verifyAdmin, async (req, res) => {
   try {
     const users = await User.find().select('-password');
     res.json({
