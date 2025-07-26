@@ -3,7 +3,7 @@ import {
   getUserSettings,
   updateUserSettings,
   getAllSettings
-} from '../controllers/settingsController.js';
+} from '../controllers/settingscontrollers.js'; // ✅ fixed
 
 import { verifyUser, verifyAdmin } from '../middleware/authmiddleware.js';
 
