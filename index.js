@@ -12,25 +12,16 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Allowed frontend origins (add/remove as needed)
-const allowedOrigins = [
-  "https://office-management-system-rho.vercel.app",
-  "https://office-management-system-e3e3eju1v.vercel.app",
-  "http://localhost:5173", // for local testing
-];
+// ✅ Allow only your hosted frontend (no local/dev URLs)
+const allowedOrigin = "https://office-management-system-lnqn84qu4.vercel.app";
 
-// ✅ Secure CORS config
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: allowedOrigin,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
@@ -41,15 +32,18 @@ if (!mongoURI) {
   process.exit(1);
 }
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log("✅ MongoDB connected");
-}).catch((err) => {
-  console.error("❌ MongoDB error:", err.message);
-  process.exit(1); // Exit to avoid running server without DB
-});
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("✅ MongoDB connected");
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB error:", err.message);
+    process.exit(1); // Exit to avoid running server without DB
+  });
 
 // ✅ Routes
 app.use("/api/auth", userRoutes);
@@ -57,7 +51,7 @@ app.use("/api/employees", employeeRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/leaves", leaveRoutes);
 
-// ✅ Root route
+// ✅ Health check
 app.get("/", (req, res) => {
   res.send("🚀 Office Management System Backend is Running");
 });
