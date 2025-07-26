@@ -7,6 +7,7 @@ import userRoutes from "./routes/auth.js";
 import employeeRoutes from "./routes/employee.js";
 import taskRoutes from "./routes/task.js";
 import leaveRoutes from "./routes/leaveRoutes.js";
+import settingsRoutes from "./routes/settings.js"; // ✅ NEW
 
 dotenv.config();
 
@@ -57,6 +58,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/leaves", leaveRoutes);
+app.use("/api/settings", settingsRoutes); // ✅ NEW
 
 // ✅ Root route for test
 app.get("/", (req, res) => {
