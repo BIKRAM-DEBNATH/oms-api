@@ -21,7 +21,7 @@ const allowedOrigins = [
   "http://localhost:5173"
 ];
 
-// ✅ Secure CORS config
+// ✅ CORS configuration
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -34,6 +34,7 @@ app.use(cors({
   credentials: true,
 }));
 
+// ✅ JSON parsing
 app.use(express.json());
 
 // ✅ MongoDB connection
@@ -58,14 +59,14 @@ app.use("/api/auth", userRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/leaves", leaveRoutes);
-app.use("/api/admin", settingsRoutes); // ✅ Changed from /api/settings to /api/admin
+app.use("/api/admin", settingsRoutes); // ✅ Mounts routes for /api/admin/settings
 
-// ✅ Root route for health check
+// ✅ Root health check
 app.get("/", (req, res) => {
   res.send("🚀 Office Management System Backend is Running");
 });
 
-// ✅ Server start
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);

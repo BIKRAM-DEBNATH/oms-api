@@ -1,6 +1,6 @@
 import User from "../models/user.js";
 
-// GET: Logged-in user's settings
+// ✅ GET: Logged-in user's settings
 export const getUserSettings = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -13,7 +13,7 @@ export const getUserSettings = async (req, res) => {
   }
 };
 
-// PUT: Update logged-in user's settings
+// ✅ PUT: Update logged-in user's settings
 export const updateUserSettings = async (req, res) => {
   try {
     const { settings } = req.body;
@@ -30,7 +30,7 @@ export const updateUserSettings = async (req, res) => {
   }
 };
 
-// GET: Admin view - get all user settings
+// ✅ GET: Admin view - get all user settings
 export const getAllSettings = async (req, res) => {
   try {
     const users = await User.find().select("name email settings");
