@@ -15,23 +15,28 @@ const app = express();
 
 // ✅ Allowed frontend origins
 const allowedOrigins = [
-
-  "https://office-management-system-nm7ffebhv.vercel.app",
-  "http://localhost:5173"
+  "https://office-management-system-nm7ffebhv.vercel.app", // Vercel frontend
+  "http://localhost:5173" // Local dev (Vite/React)
 ];
 
 // ✅ CORS configuration
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // include OPTIONS
+    allowedHeaders: ["Content-Type", "Authorization"],    // required headers
+    credentials: true,
+  })
+);
+
+// ✅ Handle preflight requests globally
+app.options("*", cors());
 
 // ✅ JSON parsing
 app.use(express.json());
@@ -43,15 +48,18 @@ if (!mongoURI) {
   process.exit(1);
 }
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log("✅ MongoDB connected");
-}).catch((err) => {
-  console.error("❌ MongoDB error:", err.message);
-  process.exit(1);
-});
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("✅ MongoDB connected");
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB error:", err.message);
+    process.exit(1);
+  });
 
 // ✅ API Routes
 app.use("/api/auth", userRoutes);
