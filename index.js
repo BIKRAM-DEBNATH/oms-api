@@ -15,9 +15,8 @@ const app = express();
 
 // ✅ Allowed frontend origins
 const allowedOrigins = [
-  "https://office-management-system-lnqn84qu4.vercel.app",
-  "https://office-management-system-rho.vercel.app",
-  "https://office-management-system-e3e3eju1v.vercel.app",
+
+  "https://office-management-system-nm7ffebhv.vercel.app",
   "http://localhost:5173"
 ];
 
