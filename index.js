@@ -15,22 +15,29 @@ const app = express();
 
 // ✅ Allowed frontend origins
 const allowedOrigins = [
-  "https://office-management-system-nm7ffebhv.vercel.app", // Vercel frontend
-  "http://localhost:5173" // Local dev (Vite/React)
+  "https://office-management-system-nm7ffebhv.vercel.app", // Vercel production frontend
+  "http://localhost:5173", // Local dev (Vite/React)
 ];
 
-// ✅ CORS configuration
+// ✅ Log request origins for debugging
+app.use((req, res, next) => {
+  console.log("🌐 Request Origin:", req.headers.origin || "No Origin (maybe server-side or Postman)");
+  next();
+});
+
+// ✅ CORS configuration with debug logging
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error("❌ Blocked by CORS:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // include OPTIONS
-    allowedHeaders: ["Content-Type", "Authorization"],    // required headers
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
