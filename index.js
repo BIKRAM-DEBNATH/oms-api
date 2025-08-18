@@ -15,8 +15,10 @@ const app = express();
 
 // ✅ Allowed frontend origins
 const allowedOrigins = [
-  "https://office-management-system-nm7ffebhv.vercel.app", // Vercel production frontend
-  "http://localhost:5173", // Local dev (Vite/React)
+  "https://office-management-system-nm7ffebhv.vercel.app",   // Production
+  "https://office-management-system-980wqmcx8.vercel.app",  // Current preview
+  "https://office-managem-git-41ceee-bikramdebnath907yt-gmailcoms-projects.vercel.app/",
+  "http://localhost:5173"
 ];
 
 // ✅ Log request origins for debugging
