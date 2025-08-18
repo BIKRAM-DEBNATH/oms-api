@@ -13,14 +13,8 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Allowed frontend origins
-const allowedOrigins = [
-  "https://office-management-system-nm7ffebhv.vercel.app",   // Production
-  "https://office-management-system-980wqmcx8.vercel.app",  // Current preview
-  "https://office-managem-git-41ceee-bikramdebnath907yt-gmailcoms-projects.vercel.app/",
-  "https://office-management-system-hqnmb9c7h.vercel.app ",
-  "http://localhost:5173"
-];
+// ✅ Allow all frontend origins
+const allowedOrigins = ["*"];
 
 // ✅ Log request origins for debugging
 app.use((req, res, next) => {
@@ -28,17 +22,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ CORS configuration with debug logging
+// ✅ CORS configuration (allow all)
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.error("❌ Blocked by CORS:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "*", // ✅ Any frontend can access
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
