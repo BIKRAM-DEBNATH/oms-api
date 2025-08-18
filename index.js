@@ -18,6 +18,7 @@ const allowedOrigins = [
   "https://office-management-system-nm7ffebhv.vercel.app",   // Production
   "https://office-management-system-980wqmcx8.vercel.app",  // Current preview
   "https://office-managem-git-41ceee-bikramdebnath907yt-gmailcoms-projects.vercel.app/",
+  "https://office-management-system-hqnmb9c7h.vercel.app ",
   "http://localhost:5173"
 ];
 
